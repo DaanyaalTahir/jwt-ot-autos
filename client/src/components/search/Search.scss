@@ -1,0 +1,113 @@
+.Search_Cont {
+  max-width: 800px;
+  background: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 8px #2d2f3b1f;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 600px) {
+    padding-bottom: 10px;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  .search_header {
+    padding: 1rem;
+    font-size: 1.25rem;
+    height: 3.75rem;
+    border-bottom: 0.0625rem solid #dedee1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #2d2f3b;
+  }
+
+  &.small_search {
+    .search_inputs {
+      flex-direction: column;
+      .input_cont {
+        margin-bottom: 10px;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .search_inputs {
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      .input_cont {
+        margin-bottom: 10px;
+      }
+    }
+
+    .grouped_inputs {
+      display: flex;
+      flex-direction: row;
+      .input_cont:not(:last-child) {
+        margin-right: 10px;
+      }
+      .input_cont {
+        @media (min-width: 600px) {
+          width: 8.125rem;
+        }
+      }
+    }
+    .input_cont:focus-within {
+      border: 2px #1477d4 solid !important;
+    }
+    .input_cont {
+      border: 1px solid lightgrey;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: row;
+      padding: 0.5rem;
+      height: 2.75rem;
+
+      @media (min-width: 600px) {
+        margin-right: 10px;
+      }
+
+      input {
+        width: 100%;
+        border-radius: 5px;
+        border-color: transparent;
+      }
+
+      input:focus {
+        outline: none;
+      }
+    }
+
+    .search_btn {
+      background-color: #1477d4;
+      color: white;
+      height: 2.75rem;
+      line-height: 1.25rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 8.125rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+}

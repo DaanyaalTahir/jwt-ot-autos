@@ -1,0 +1,100 @@
+.Register_Cont {
+  height: 100vh;
+  .row {
+    height: 100vh;
+  }
+  .registration_section {
+    background-color: #f7f7f9;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .input_field {
+      margin-top: 20px;
+      label {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: #2d2f3b;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+
+      .input_cont {
+        border: 1px solid lightgrey;
+        border-radius: 5px;
+
+        input {
+          width: 100%;
+          height: 2.75rem;
+          border-radius: 5px;
+          border-color: transparent;
+        }
+      }
+    }
+  }
+
+  .info_section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1.2rem;
+    background-color: white;
+
+    @media only screen and (max-width: 800px) {
+      justify-content: center;
+    }
+  }
+
+  .section_container {
+    max-width: 350px;
+    width: 100%;
+    margin: 0 20px;
+    padding: 20px;
+  }
+
+  .register_button {
+    background-color: #1477d4;
+    color: #fff;
+    width: 100%;
+    border-radius: 5px;
+    height: 2.75rem;
+    margin-top: 40px;
+  }
+
+  .form_desc {
+    color: grey;
+  }
+
+  .company_name {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.5em;
+    font-weight: bold;
+    align-items: baseline;
+
+    .name_2 {
+      background-color: #1477d4;
+      color: white;
+      margin-left: 8px;
+      border-radius: 5px;
+      padding: 0 8px;
+      line-height: 1;
+    }
+  }
+
+  .company_info {
+    color: grey;
+    margin-top: 10px;
+    div {
+      display: flex;
+      margin: 10px 0;
+
+      .material-icons {
+        color: green;
+        margin-right: 5px;
+      }
+    }
+  }
+}

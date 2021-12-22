@@ -1,0 +1,22 @@
+.ResultsPage_Cont {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  height: 100vh;
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+
+  .results_page_content {
+    display: flex;
+    flex-direction: row;
+    .search_cont {
+      max-width: 500px;
+      margin-right: 20px;
+    }
+
+    .results_cont {
+      width: 100%;
+    }
+  }
+}

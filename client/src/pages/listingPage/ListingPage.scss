@@ -1,0 +1,127 @@
+.ListingPage_Cont {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+  &.elements_medium_container {
+    max-width: 1150px !important;
+  }
+
+  .go_back_btn {
+    color: #666974;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .material-icons {
+      font-size: 1.3rem;
+      margin-right: 5px;
+    }
+  }
+
+  .page_content {
+    display: flex;
+    flex-direction: row;
+
+    .vehicle_info {
+      max-width: 650px;
+      margin-right: 1.5rem;
+
+      .listing_image {
+        background: #e9eaeb;
+
+        img {
+          object-fit: contain;
+          border-radius: 0.25rem;
+          width: 100%;
+          aspect-ratio: 600/450;
+        }
+      }
+
+      .vehicle_heading {
+        margin-top: 1rem;
+        padding: 1.5rem 1.5rem 1rem;
+
+        .heading {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          .title {
+            font-size: 1.3rem;
+            line-height: 2.125rem;
+          }
+
+          .listing_id {
+            font-size: 0.75rem;
+          }
+        }
+
+        .price {
+          font-size: 1.75rem;
+          font-weight: bold;
+        }
+      }
+
+      .vehicle_stats {
+        margin-top: 1rem;
+        padding: 1.5rem 1.5rem 1rem;
+        grid-gap: 0.45rem;
+        row-gap: 1.2rem;
+        display: grid;
+        grid-template-columns: minmax(7rem, 1fr) minmax(1rem, 1fr) minmax(
+            1rem,
+            1fr
+          );
+
+        .stat {
+          display: flex;
+          flex-direction: row;
+
+          .stat_icon {
+            margin-right: 8px;
+          }
+
+          .stat_content {
+            .stat_value {
+              display: flex;
+            }
+            .stat_name {
+              font-size: 0.75rem;
+              line-height: 1.125rem;
+            }
+          }
+        }
+      }
+
+      .vehicle_description {
+        margin-top: 1rem;
+        padding: 1.5rem 1.5rem 1rem;
+      }
+    }
+
+    .contact_info_cont {
+      width: 100%;
+      max-width: 290px;
+      .contact_info {
+        padding: 1.5rem;
+        width: 100%;
+
+        .contact {
+          color: #666974;
+          align-items: center;
+          display: flex;
+          margin-top: 1rem;
+        }
+
+        .material-icons {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}

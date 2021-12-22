@@ -1,0 +1,129 @@
+.Nav_Container {
+  align-items: center;
+  display: flex;
+  height: 4rem;
+  min-height: 4rem;
+  position: relative;
+  background-color: #1477d4;
+  color: white;
+
+  &.Simple_Nav {
+    background-color: white !important;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.1) !important;
+    color: black !important;
+    .name_2 {
+      background-color: #1477d4 !important;
+      color: white !important;
+    }
+    .nav_options {
+      color: #666974;
+      .option {
+        color: #666974 !important;
+      }
+      .option:hover {
+        border-bottom: #666974 solid 2px !important;
+      }
+
+      .post_ad_btn {
+        background-color: #dedee1 !important;
+        color: black !important;
+      }
+    }
+  }
+
+  .nav_items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+
+    .company_name {
+      display: flex;
+      flex-direction: row;
+      font-size: 1.5em;
+      font-weight: bold;
+      align-items: baseline;
+      cursor: pointer;
+
+      .name_2 {
+        background-color: white;
+        color: #1477d4;
+        margin-left: 8px;
+        border-radius: 5px;
+        padding: 0 8px;
+        line-height: 1;
+      }
+    }
+
+    .nav_options {
+      display: flex;
+      flex-direction: row;
+      font-size: 1rem;
+
+      .nav_dropdown {
+        top: 100%;
+        right: 17px;
+        background: #fff;
+        border: 1px solid #f1f1f2;
+        border-radius: 0.25rem;
+        box-shadow: 0 12px 16px #66697440;
+        padding: 0.25rem 0.5rem;
+        position: absolute;
+        color: #2d2f3b;
+        width: max-content;
+
+        .material-icons-outlined {
+          margin-right: 15px;
+          font-size: 20px;
+        }
+
+        .dropdown_option {
+          padding: 0.45rem 0.5rem;
+          display: flex;
+          cursor: pointer;
+        }
+      }
+
+      .user_profile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+        button {
+          border-bottom: 2px solid transparent;
+          margin-left: 0.5rem;
+        }
+      }
+
+      .option {
+        margin: 0 1rem;
+        color: white;
+        align-items: center;
+        cursor: pointer;
+        display: inline-flex;
+        flex-shrink: 0;
+        height: 100%;
+        justify-content: center;
+        padding: 0;
+        text-decoration: none;
+      }
+
+      .option:hover {
+        border-bottom: white solid 2px;
+      }
+
+      .post_ad_btn {
+        margin: 0 1rem;
+        cursor: pointer;
+        background-color: #fff;
+        color: #155e9b;
+        height: 2.5rem;
+        line-height: 1.25rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+}

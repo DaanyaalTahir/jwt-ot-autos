@@ -1,0 +1,40 @@
+.Home {
+  height: 100vh;
+  background: #f7f7f9;
+  .blue_block {
+    background-color: #1477d4;
+    height: 25rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .homepage_title {
+      max-width: 1000px;
+      .homepage_title_words {
+        color: #1477d4;
+        background-color: white;
+        margin-right: 10px;
+        font-weight: bold;
+        font-size: 4rem;
+        padding: 0 20px;
+        text-transform: capitalize;
+        margin-bottom: 10px;
+        width: fit-content;
+        line-height: 1;
+      }
+      .highlighted_text {
+        color: #155e9b;
+      }
+    }
+  }
+  .searchbox_pos {
+    position: absolute;
+    top: 405px;
+  }
+
+  .center_search {
+    display: flex;
+    justify-content: center;
+  }
+}

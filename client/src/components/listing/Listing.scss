@@ -1,0 +1,115 @@
+.Listing_Cont {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+
+  img {
+    height: 12.75rem;
+    width: 17rem;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    object-fit: cover;
+    @media (max-width: 900px) {
+      height: 9.375rem;
+      width: 12.5rem;
+    }
+
+    @media (max-width: 600px) {
+      height: 6.5rem;
+      width: 8.75rem;
+    }
+  }
+
+  .listing_content {
+    padding: 1.5rem 1.5rem 0;
+    width: 100%;
+    .important_info {
+      font-size: 1.75rem;
+      line-height: 2.125rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      @media (max-width: 900px) {
+        font-size: 1.125rem;
+        line-height: 1.625rem;
+      }
+      .title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1 2 auto;
+        width: 0;
+      }
+
+      .price {
+        margin-left: 10px;
+      }
+    }
+
+    .listing_summary {
+      font-size: 0.875rem;
+      grid-gap: 0.35rem;
+      display: grid;
+      grid-template-columns: minmax(7rem, 1fr) minmax(1rem, 1fr);
+      margin-top: 0;
+      max-width: 28rem;
+      width: 100%;
+      margin: 2rem 0 1rem 0;
+      .material-icons-outlined {
+        font-size: 1.2rem;
+        margin-right: 5px;
+      }
+      @media (max-width: 600px) {
+        font-size: 0.75rem;
+        line-height: 1.125rem;
+        .material-icons-outlined {
+          font-size: 1rem;
+        }
+      }
+      @media (max-width: 900px) {
+        margin: 0;
+      }
+      div {
+        display: flex;
+        align-items: center;
+      }
+    }
+    hr {
+      margin-bottom: 15px;
+    }
+    .listing_actions_cont {
+      display: flex;
+      flex-direction: row;
+      font-size: 0.75rem;
+      justify-content: space-between;
+
+      .material-icons {
+        font-size: 1rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: row;
+
+        .delete_btn {
+          color: red;
+          cursor: pointer;
+          display: flex;
+          margin-left: 9px;
+        }
+
+        .edit_btn {
+          color: #155e9b;
+          cursor: pointer;
+          display: flex;
+        }
+
+        .text:hover {
+          border-bottom: solid 2px;
+        }
+      }
+    }
+  }
+}

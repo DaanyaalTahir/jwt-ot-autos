@@ -1,0 +1,97 @@
+.PostAd_Container {
+  padding-top: 4rem;
+  @media (min-width: 768px) {
+    max-width: 700px;
+  }
+
+  .input_field {
+    margin-top: 20px;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .custom-file-upload {
+      border: 1px solid lightgrey;
+      border-radius: 5px;
+      height: 140px;
+      cursor: pointer;
+      display: inline-block;
+      background: white;
+
+      img {
+        height: 100px;
+        opacity: 0.6;
+      }
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      color: #2d2f3b;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .input_cont {
+      border: 1px solid lightgrey;
+      border-radius: 5px;
+
+      input {
+        width: 100%;
+        height: 2.75rem;
+        border-radius: 5px;
+        border-color: transparent;
+        padding: 8px;
+      }
+
+      textarea {
+        width: 100%;
+        border-radius: 5px;
+        border-color: transparent;
+        padding: 8px;
+      }
+
+      select {
+        width: 100%;
+        height: 2.75rem;
+        border-radius: 5px;
+        border-color: transparent;
+        padding: 8px;
+        background: white;
+      }
+    }
+  }
+
+  .form_actions {
+    display: flex;
+    flex-direction: row;
+    margin: 40px 0;
+
+    &.end {
+      justify-content: end;
+    }
+
+    &.space_between {
+      justify-content: space-between;
+    }
+
+    .progress_button {
+      color: white;
+      cursor: pointer;
+      background-color: #1477d4;
+      height: 2.5rem;
+      line-height: 1.25rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      border-radius: 0.25rem;
+    }
+
+    .back_button {
+      color: #1477d4;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,94 @@
+.elements_container {
+  max-width: 1700px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 90px;
+}
+
+@media (max-width: 600px) {
+  .elements_container,
+  .elements_medium_container,
+  .elements_small_container {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+  }
+}
+
+.elements_medium_container {
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 90px;
+}
+
+.not_found_text {
+  color: #b1b3b8;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.elements_smaller_container {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 90px;
+}
+
+.elements_small_container {
+  max-width: 1150px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 90px;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+.dot_space {
+  margin: 0 0.25rem;
+  color: #666974;
+  font-weight: bold;
+}
+
+hr {
+  border: 0;
+  border-top-color: currentcolor;
+  border-top-style: none;
+  border-top-width: 0px;
+  border-top: 1px solid grey;
+  height: 1px;
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.card_title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.card_container {
+  box-shadow: 0 2px 4px rgba(45, 47, 59, 0.12);
+  border-radius: 0.25rem;
+  padding: 0;
+  background: #fff;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button:disabled,
+button[disabled] {
+  background-color: #dedee1 !important;
+  color: #b1b3b8 !important;
+  cursor: not-allowed !important;
+}
