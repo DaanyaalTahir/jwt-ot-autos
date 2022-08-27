@@ -22,3 +22,7 @@ ReactJS, ExpressJS, MySQL, Redux, react-router, Bootstrap
 <img src="https://github.com/DaanyaalTahir/OT-Autos/blob/master/images/PostAd_Basic-Details.png" alt="post_ad_basic_details" width="500"/>
 <img src="https://github.com/DaanyaalTahir/OT-Autos/blob/master/images/PostAd_Additional-Details.png" alt="post_ad_additional_details" width="500"/>
 <img src="https://github.com/DaanyaalTahir/OT-Autos/blob/master/images/PostAd_Contact-Details.png" alt="post_ad_contact_details" width="500"/>
+
+### My Ads 
+<img src="https://github.com/DaanyaalTahir/OT-Autos/blob/master/images/My-Ads.png" alt="my_ads" width="500"/>
+
