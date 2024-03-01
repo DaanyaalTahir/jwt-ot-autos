@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import api from "../../global/api";
 function ContactDetails({
   previousPage,
   updateUserInput,
@@ -19,7 +19,8 @@ function ContactDetails({
 
     console.log(userInput);
 
-    await Axios.post("http://localhost:3001/postAd", userInput)
+    await api
+      .post("http://localhost:3001/postAd", userInput)
       .then((response) => {
         console.log(response);
         listingId = response.data.listingId;
@@ -33,9 +34,10 @@ function ContactDetails({
       formData.append("listingId", listingId);
       formData.append("file", uploadedImg.file);
 
-      await Axios.post("http://localhost:3001/saveImage", formData, {
-        "Content-Type": "multipart/form-data",
-      })
+      await api
+        .post("http://localhost:3001/saveImage", formData, {
+          "Content-Type": "multipart/form-data",
+        })
         .then((response) => {
           console.log(response);
         })

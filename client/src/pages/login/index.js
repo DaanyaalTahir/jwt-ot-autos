@@ -3,7 +3,8 @@ import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../state/actions/userActions";
 import { useHistory } from "react-router-dom";
-
+import { setAccessToken } from "../../global/api";
+import api from "../../global/api";
 //Bootstrap components
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -22,10 +23,11 @@ function Login() {
 
     const body = { email, password };
 
-    Axios.post("http://localhost:3001/login", body)
+    api
+      .post("http://localhost:3001/login", body)
       .then((response) => {
         console.log(response);
-        let { username, id } = response.data.data;
+        let { username, id, token } = response.data.data;
         dispatch(
           loginUser({
             email,
@@ -33,6 +35,7 @@ function Login() {
             id,
           })
         );
+        setAccessToken(token);
         history.push("/");
       })
       .catch((err) => {

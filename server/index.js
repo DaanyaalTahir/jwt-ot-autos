@@ -2,7 +2,7 @@
 
 const express = require("express");
 const cors = require("cors");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const PORT = 3001;
 const app = express();
 const bcrypt = require("bcrypt");
@@ -10,19 +10,63 @@ const saltRounds = 10;
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const axios = require("axios");
+var jwt = require("jsonwebtoken");
+
+var privateKey = fs.readFileSync("./private.key", "utf8");
+var publicKey = "";
 
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "",
+  password: "password",
   database: "ot_autos",
 });
+
+// Fetch the public key from localhost:3002/keys
+axios
+  .get("http://localhost:3002/keys")
+  .then((response) => {
+    publicKey = response.data;
+    console.log("Public token retrieved");
+  })
+  .catch((error) => {
+    console.error("Error fetching public key:", error);
+  });
 
 db.connect();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static("uploads"));
+
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+
+  if (!authHeader) {
+    return res.status(403).send({ message: "Token is required" });
+  }
+
+  // Check if the authorization header starts with "Bearer " and remove it if present
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.slice(7)
+    : authHeader;
+
+  if (!token) {
+    return res.status(403).send({ message: "Token is required" });
+  }
+
+  jwt.verify(token, publicKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: "Invalid token" });
+    }
+
+    req.user = decoded;
+    console.log(decoded);
+
+    next();
+  });
+};
 
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -69,7 +113,22 @@ app.post("/register", (req, res) => {
               res.send({ err: err });
             }
             console.log(result.insertId);
-            res.send({ id: result.insertId });
+            var signOptions = {
+              issuer: "OT-Autos",
+              subject: email,
+              audience: "otautos.com",
+              expiresIn: "24h",
+              algorithm: "RS256",
+            };
+
+            var payload = {
+              email,
+              username: username,
+              id: result.insertId,
+            };
+
+            var token = jwt.sign(payload, privateKey, signOptions);
+            res.send({ id: result.insertId, token });
           }
         );
       });
@@ -100,11 +159,29 @@ app.post("/login", (req, res) => {
                 res.send({ err: err });
               }
               console.log(result);
+
+              var signOptions = {
+                issuer: "OT-Autos",
+                subject: email,
+                audience: "otautos.com",
+                expiresIn: "24h",
+                algorithm: "RS256",
+              };
+
+              var payload = {
+                email,
+                username: result[0].username,
+                id: result[0].id,
+              };
+
+              var token = jwt.sign(payload, privateKey, signOptions);
+
               res.send({
                 message: "Success",
                 data: {
                   username: result[0].username,
                   id: result[0].id,
+                  token,
                 },
               });
             }
@@ -120,7 +197,7 @@ app.post("/saveImage", upload.single("file"), (req, res) => {
   res.send({ result: "success" });
 });
 
-app.post("/postAd", (req, res) => {
+app.post("/postAd", verifyToken, (req, res) => {
   console.log(req.body);
   const {
     userId,
@@ -168,7 +245,7 @@ app.post("/postAd", (req, res) => {
   );
 });
 
-app.get("/getUserAds", (req, res) => {
+app.get("/getUserAds", verifyToken, (req, res) => {
   const { userId } = req.query;
   console.log(req.query);
 
@@ -184,7 +261,7 @@ app.get("/getUserAds", (req, res) => {
   );
 });
 
-app.post("/deleteListing", (req, res) => {
+app.post("/deleteListing", verifyToken, (req, res) => {
   const { listingId, userId } = req.body;
   const imgDir = `./uploads/${userId}/${listingId}`;
   db.query("DELETE FROM listings WHERE id = ?", [listingId], (err, result) => {
@@ -196,7 +273,7 @@ app.post("/deleteListing", (req, res) => {
   });
 });
 
-app.post("/editAd", (req, res) => {
+app.post("/editAd", verifyToken, (req, res) => {
   const { id } = req.body;
   var values = [];
 
@@ -222,7 +299,7 @@ app.post("/editAd", (req, res) => {
   );
 });
 
-app.post("/editImage", upload.single("file"), (req, res) => {
+app.post("/editImage", verifyToken, upload.single("file"), (req, res) => {
   res.send({ result: "success" });
 });
 

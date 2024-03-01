@@ -3,7 +3,7 @@ import { Redirect, useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
-
+import api from "../../global/api";
 //Components
 import BasicDetails from "./BasicDetails";
 import AdditionalDetails from "./AdditionalDetails";
@@ -48,7 +48,8 @@ function EditAd() {
     }
 
     if (Object.keys(body).length > 1) {
-      await Axios.post("http://localhost:3001/editAd", body)
+      await api
+        .post("http://localhost:3001/editAd", body)
         .then((response) => {
           console.log(response);
         })
@@ -62,9 +63,10 @@ function EditAd() {
         formData.append("previousImg", previousUserInput.imageName);
         formData.append("file", uploadedImg.file);
 
-        await Axios.post("http://localhost:3001/editImage", formData, {
-          "Content-Type": "multipart/form-data",
-        })
+        await api
+          .post("http://localhost:3001/editImage", formData, {
+            "Content-Type": "multipart/form-data",
+          })
           .then((response) => {
             console.log(response);
           })

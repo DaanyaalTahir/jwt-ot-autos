@@ -3,11 +3,11 @@ import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../state/actions/userActions";
 import { useHistory } from "react-router-dom";
-
+import api from "../../global/api";
 //Bootstrap components
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import { setAccessToken } from "../../global/api";
 import "./Register.scss";
 
 function Register() {
@@ -21,10 +21,13 @@ function Register() {
   const onSubmit = () => {
     const body = { email, username, password };
 
-    Axios.post("http://localhost:3001/register", body)
+    api
+      .post("http://localhost:3001/register", body)
       .then((response) => {
         console.log(response);
+        const { id, token } = response.data;
         dispatch(loginUser({ email, username, id: response.data.id }));
+        setAccessToken(token);
         history.push("/");
       })
       .catch((err) => {

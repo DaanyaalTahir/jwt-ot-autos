@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
-
 import Listing from "../../components/listing";
+import api from "../../global/api";
 
 import "./ManageAds.scss";
 
@@ -13,7 +12,7 @@ function ManageAds() {
   const history = useHistory();
 
   useEffect(() => {
-    axios
+    api
       .get("http://localhost:3001/getUserAds", {
         params: {
           userId: id,
@@ -26,7 +25,7 @@ function ManageAds() {
   }, []);
 
   const deleteListing = (listingId) => {
-    axios
+    api
       .post("http://localhost:3001/deleteListing", { listingId, userId: id })
       .then((res) => {
         console.log(res);
