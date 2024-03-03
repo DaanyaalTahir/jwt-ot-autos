@@ -64,7 +64,7 @@ function EditAd() {
         formData.append("file", uploadedImg.file);
 
         await api
-          .post("http://localhost:3001/editImage", formData, {
+          .post("http://localhost:3003/editImage", formData, {
             "Content-Type": "multipart/form-data",
           })
           .then((response) => {

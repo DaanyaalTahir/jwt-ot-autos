@@ -18,7 +18,7 @@ function Listing({ listing, editMode = false, deleteListing, editListing }) {
         <img
           src={
             listing.imageName
-              ? `http://localhost:3001/${listing.userId}/${listing.id}/${listing.imageName}`
+              ? `http://localhost:3003/${listing.userId}/${listing.id}/${listing.imageName}`
               : "./emptyImg.jpg"
           }
         />

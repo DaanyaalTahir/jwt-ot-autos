@@ -7,14 +7,10 @@ const PORT = 3001;
 const app = express();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const multer = require("multer");
-const path = require("path");
 const fs = require("fs");
-const axios = require("axios");
 var jwt = require("jsonwebtoken");
 
 var privateKey = fs.readFileSync("./private.key", "utf8");
-var publicKey = "";
 
 const db = mysql.createConnection({
   user: "root",
@@ -22,17 +18,6 @@ const db = mysql.createConnection({
   password: "password",
   database: "ot_autos",
 });
-
-// Fetch the public key from localhost:3002/keys
-axios
-  .get("http://localhost:3002/keys")
-  .then((response) => {
-    publicKey = response.data;
-    console.log("Public token retrieved");
-  })
-  .catch((error) => {
-    console.error("Error fetching public key:", error);
-  });
 
 db.connect();
 
@@ -47,7 +32,6 @@ const verifyToken = (req, res, next) => {
     return res.status(403).send({ message: "Token is required" });
   }
 
-  // Check if the authorization header starts with "Bearer " and remove it if present
   const token = authHeader.startsWith("Bearer ")
     ? authHeader.slice(7)
     : authHeader;
@@ -56,38 +40,16 @@ const verifyToken = (req, res, next) => {
     return res.status(403).send({ message: "Token is required" });
   }
 
-  jwt.verify(token, publicKey, (err, decoded) => {
+  jwt.verify(token, privateKey, (err, decoded) => {
     if (err) {
       return res.status(401).send({ message: "Invalid token" });
     }
 
     req.user = decoded;
-    console.log(decoded);
 
     next();
   });
 };
-
-const fileStorageEngine = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const { userId, listingId, previousImg } = req.body;
-    var dir = path.join(__dirname + `/uploads/${userId}/${listingId}/`);
-
-    if (previousImg) {
-      fs.unlinkSync(
-        path.join(__dirname + `/uploads/${userId}/${listingId}/${previousImg}`)
-      );
-    }
-
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    cb(null, dir); //important this is a direct path fron our current file to storage location
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
 
 app.post("/register", (req, res) => {
   const username = req.body.username;
@@ -98,7 +60,6 @@ app.post("/register", (req, res) => {
     if (err) {
       res.send({ err: err });
     }
-    console.log(result);
     if (result.length > 0) {
       console.log("Email Already Exists!");
       res.status(400).send({ message: "Email Already Exists!" });
@@ -147,7 +108,6 @@ app.post("/login", (req, res) => {
       if (err) {
         res.send({ err: err });
       }
-      console.log(result);
 
       bcrypt.compare(password, result[0].password, (err, result) => {
         if (result) {
@@ -158,7 +118,6 @@ app.post("/login", (req, res) => {
               if (err) {
                 res.send({ err: err });
               }
-              console.log(result);
 
               var signOptions = {
                 issuer: "OT-Autos",
@@ -191,14 +150,8 @@ app.post("/login", (req, res) => {
     }
   );
 });
-const upload = multer({ storage: fileStorageEngine });
-
-app.post("/saveImage", upload.single("file"), (req, res) => {
-  res.send({ result: "success" });
-});
 
 app.post("/postAd", verifyToken, (req, res) => {
-  console.log(req.body);
   const {
     userId,
     make,
@@ -247,7 +200,6 @@ app.post("/postAd", verifyToken, (req, res) => {
 
 app.get("/getUserAds", verifyToken, (req, res) => {
   const { userId } = req.query;
-  console.log(req.query);
 
   db.query(
     "SELECT * FROM listings WHERE userId = ? ORDER BY id DESC;",
@@ -299,10 +251,6 @@ app.post("/editAd", verifyToken, (req, res) => {
   );
 });
 
-app.post("/editImage", verifyToken, upload.single("file"), (req, res) => {
-  res.send({ result: "success" });
-});
-
 app.get("/search", (req, res) => {
   console.log(req.query);
 
@@ -321,10 +269,6 @@ app.get("/search", (req, res) => {
     else getValues += `listings.${property} = ?`;
   }
 
-  console.log(values);
-  console.log(
-    `SELECT listings.*, users.email, users.username FROM listings INNER JOIN users ON  listings.userId = users.id ${getValues} ORDER BY listings.id DESC;`
-  );
   db.query(
     `SELECT listings.*, users.email, users.username FROM listings INNER JOIN users ON  listings.userId = users.id ${getValues} ORDER BY listings.id DESC;`,
     values,

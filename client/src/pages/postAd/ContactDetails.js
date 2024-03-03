@@ -35,7 +35,7 @@ function ContactDetails({
       formData.append("file", uploadedImg.file);
 
       await api
-        .post("http://localhost:3001/saveImage", formData, {
+        .post("http://localhost:3003/saveImage", formData, {
           "Content-Type": "multipart/form-data",
         })
         .then((response) => {
