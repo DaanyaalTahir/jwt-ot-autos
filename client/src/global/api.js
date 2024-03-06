@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ENDPOINT } from "./globals";
 
+import { useHistory } from "react-router-dom";
+
 // Create an Axios instance with a base URL
 const api = axios.create({
   baseURL: ENDPOINT,
@@ -25,7 +27,16 @@ api.interceptors.response.use(
     // Check if the error status is 401 (unauthorized)
     if (error.response && error.response.status === 401) {
       // Redirect to the sign-in page
+      let history = useHistory();
+      history.push('/signin');
     }
+
+    if (error.response && error.response.status === 403) {
+      // Redirect to the sign-in page
+      let history = useHistory();
+      history.push('/PageNotFound');
+    }
+
     // Do something with response error
     return Promise.reject(error);
   }

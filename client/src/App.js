@@ -12,6 +12,7 @@ import ManageAds from "./pages/manageAds";
 import EditAd from "./pages/editAd";
 import Results from "./pages/results";
 import ListingPage from "./pages/listingPage";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -47,6 +48,10 @@ function App() {
           <Route path="/listing">
             <GlobalNav size="small" />
             <ListingPage />
+          </Route>
+          <Route component={PageNotFound}>
+            <GlobalNav size="small" />
+            <PageNotFound/>
           </Route>
         </Switch>
       </Router>

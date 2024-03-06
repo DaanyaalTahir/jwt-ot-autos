@@ -15,7 +15,7 @@ var privateKey = fs.readFileSync("./private.key", "utf8");
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "password",
+  password: "050498",
   database: "ot_autos",
 });
 
