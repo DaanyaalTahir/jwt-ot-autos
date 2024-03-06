@@ -55,6 +55,7 @@ app.post("/register", (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
+  const role = 'USER';
 
   db.query("SELECT * FROM users WHERE email = ?; ", [email], (err, result) => {
     if (err) {
@@ -67,8 +68,8 @@ app.post("/register", (req, res) => {
       console.log("Email is good!");
       bcrypt.hash(password, saltRounds, (err, hash) => {
         db.query(
-          "INSERT INTO users (username, email, password) VALUES (?,?,?);",
-          [username, email, hash],
+          "INSERT INTO users (username, email, password, role) VALUES (?,?,?,?);",
+          [username, email, hash, role],
           (err, result) => {
             if (err) {
               res.send({ err: err });
@@ -85,6 +86,7 @@ app.post("/register", (req, res) => {
             var payload = {
               email,
               username: username,
+              role: role,
               id: result.insertId,
             };
 
@@ -112,7 +114,7 @@ app.post("/login", (req, res) => {
       bcrypt.compare(password, result[0].password, (err, result) => {
         if (result) {
           db.query(
-            "SELECT username, id FROM users WHERE email = ?; ",
+            "SELECT username, id, role FROM users WHERE email = ?; ",
             [email],
             (err, result) => {
               if (err) {
@@ -131,6 +133,7 @@ app.post("/login", (req, res) => {
                 email,
                 username: result[0].username,
                 id: result[0].id,
+                role: result[0].role,
               };
 
               var token = jwt.sign(payload, privateKey, signOptions);
@@ -140,6 +143,7 @@ app.post("/login", (req, res) => {
                 data: {
                   username: result[0].username,
                   id: result[0].id,
+                  role: result[0].role,
                   token,
                 },
               });
@@ -200,17 +204,28 @@ app.post("/postAd", verifyToken, (req, res) => {
 
 app.get("/getUserAds", verifyToken, (req, res) => {
   const { userId } = req.query;
-
-  db.query(
-    "SELECT * FROM listings WHERE userId = ? ORDER BY id DESC;",
-    [userId],
-    (err, result) => {
-      if (err) {
-        res.send({ err: err });
+  if (req.user.role == 'ADMIN'){
+    db.query(
+      "SELECT * FROM listings ORDER BY id DESC;",
+      (err, result) => {
+        if (err) {
+          res.send({ err: err });
+        }
+        res.send({ listings: result });
       }
-      res.send({ listings: result });
-    }
-  );
+    );
+  } else {
+    db.query(
+      "SELECT * FROM listings WHERE userId = ? ORDER BY id DESC;",
+      [userId],
+      (err, result) => {
+        if (err) {
+          res.send({ err: err });
+        }
+        res.send({ listings: result });
+      }
+    );
+  }
 });
 
 app.post("/deleteListing", verifyToken, (req, res) => {
